@@ -1,11 +1,10 @@
-name: Twitter BOT
-on:
-  push:
+name: Kirim Ke Twitter
+on: [push]
     paths:
       "toggle"
   schedule:
     # Runs "at minute 55 past every hour" (see https://crontab.guru)
-    - cron: '*/60 * * * *'
+    - cron: '*/2 * * * *'
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -34,5 +33,5 @@ jobs:
       uses: EndBug/add-and-commit@v7
       with:
         author_name: Bot
-        message: 'Updated data'
+        message: 'Updated Data Berhasil'
         add: '*'
