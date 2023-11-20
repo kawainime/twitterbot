@@ -1,10 +1,11 @@
 name: Kirim Ke Twitter
-on: [push]
+on:
+  push:
     paths:
       "toggle"
   schedule:
     # Runs "at minute 55 past every hour" (see https://crontab.guru)
-    - cron: '*/2 * * * *'
+    - cron: '*/60 * * * *'
 jobs:
   fetch:
     runs-on: ubuntu-latest
