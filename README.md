@@ -1,5 +1,7 @@
-# twitterBot
+# Twitter BOT
 Bot Twitter stasiun, menyediakan pembaruan rutin di [@MeteoCocito](https://twitter.com/MeteoCocito).
+
+[![Twitter BOT](https://github.com/kawainime/twitterbot/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/kawainime/twitterbot/actions/workflows/main.yml)
 
 Secara khusus 
 
