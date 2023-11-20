@@ -22,12 +22,12 @@ class DataType:
 
 class DataTypeArchive:
     data = [
-        DataType("T", "°C", "temperature.csv", "Suhu"),
-        DataType("H", "%", "humidity.csv", "kelembaban"),
-        DataType("P", "hPa", "pressure.csv", "Tekanan"),
+        DataType("T", "°C", "temperature.csv", "Temperatura"),
+        DataType("H", "%", "humidity.csv", "Umidità"),
+        DataType("P", "hPa", "pressure.csv", "Pressione"),
         DataType("PM10", "µg/m³", "pm10.csv", "PM10"),
         DataType("PM25", "µg/m³", "pm25.csv", "PM2,5"),
-        DataType("S", "µg/m³", "smoke.csv", "Asap dan uap yang mudah terbakar")
+        DataType("S", "µg/m³", "smoke.csv", "Fumo e vapori infiammabili")
     ]
 
     class Symbols(Enum):
@@ -198,12 +198,12 @@ class TweetGenerator:
     def current() -> list[str]:  # git log -1 --format=%ct  as data variable
         ldt = DataArchive.latestDatetime()
         c = DataArchive.current()
-        return ["Data meteorologi:\nPembaharuan Terakhir: " + ldt + "\n--------------\nTemperatura: " + (
-            "{:.2f}".format(c["T"])) + " °C\n" + "kelembaban: " + (
-                    "{:.2f}".format(c["H"])) + " %\n" + "Tekanan: " + (
+        return ["Dati Meteorologici:\nUltimo aggiornamento: " + ldt + "\n--------------\nTemperatura: " + (
+            "{:.2f}".format(c["T"])) + " °C\n" + "Umidità: " + (
+                    "{:.2f}".format(c["H"])) + " %\n" + "Pressione: " + (
                     "{:.2f}".format(c["P"])) + " hPa\n" + "PM10: " + (
                     "{:.2f}".format(c["PM10"])) + " µg/m³\n" + "PM2,5: " + (
-                    "{:.2f}".format(c["PM25"])) + " µg/m³\n" + "Asap dan uap yang mudah terbakar: " + (
+                    "{:.2f}".format(c["PM25"])) + " µg/m³\n" + "Fumo e vapori infiammabili: " + (
                     "{:.2f}".format(c["S"])) + " µg/m³"]
 
     @staticmethod
@@ -221,15 +221,15 @@ class TweetGenerator:
             ssm = s[symbol]
             list.append(
                 "(" + str(i + 1) + "/" + str(
-                    l) + ") Data minggu ini\n---" + dta.italianName + "---\nMedia: " + (
-                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nMode: " + (
-                    "{:.2f}".format(ssm["mode"])) + " " + dta.unit + "\nMaksimum: " + (
+                    l) + ") Dati di questa settimana\n---" + dta.italianName + "---\nMedia: " + (
+                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nModa: " + (
+                    "{:.2f}".format(ssm["mode"])) + " " + dta.unit + "\nMassimo: " + (
                     "{:.2f}".format(ssm["max"].value)) + " " + dta.unit + " (" + ssm["max"].instant.strftime(
                     "%d/%m/%Y %H:%M:%S") + ") " + "\nMinimo: " + (
                     "{:.2f}".format(ssm["min"].value)) + " " + dta.unit + " (" + ssm["min"].instant.strftime(
                     "%d/%m/%Y %H:%M:%S") + ") " + "\nDeviazione Standard: " + (
-                    "{:.2f}".format(ssm["stdev"])) + " " + dta.unit + "\nMode: " + (
-                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nJumlah deteksi: " + (
+                    "{:.2f}".format(ssm["stdev"])) + " " + dta.unit + "\nModa: " + (
+                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nNumero di rilevazioni: " + (
                     "{:.2f}".format(ssm["itemCount"])))
             i += 1
         return list
@@ -244,15 +244,15 @@ class TweetGenerator:
             dta = DataTypeArchive.fromSymbol(symbol.value)
             ssm = s[symbol]
             list.append(
-                "(" + str(i + 1) + "/" + str(l) + ") Data bulan ini\n---" + dta.italianName + "---\nMedia: " + (
-                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nMode: " + (
-                    "{:.2f}".format(ssm["mode"])) + " " + dta.unit + "\nMaksimum: " + (
+                "(" + str(i + 1) + "/" + str(l) + ") Dati di questo mese\n---" + dta.italianName + "---\nMedia: " + (
+                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nModa: " + (
+                    "{:.2f}".format(ssm["mode"])) + " " + dta.unit + "\nMassimo: " + (
                     "{:.2f}".format(ssm["max"].value)) + " " + dta.unit + " (" + ssm["max"].instant.strftime(
-                    "%d/%m/%Y %H:%M:%S") + ") " + "\nMinimum: " + (
+                    "%d/%m/%Y %H:%M:%S") + ") " + "\nMinimo: " + (
                     "{:.2f}".format(ssm["min"].value)) + " " + dta.unit + " (" + ssm["min"].instant.strftime(
-                    "%d/%m/%Y %H:%M:%S") + ") " + "\nDeviasi standar: " + (
-                    "{:.2f}".format(ssm["stdev"])) + " " + dta.unit + "\nMode: " + (
-                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nJumlah deteksi: " + (
+                    "%d/%m/%Y %H:%M:%S") + ") " + "\nDeviazione Standard: " + (
+                    "{:.2f}".format(ssm["stdev"])) + " " + dta.unit + "\nModa: " + (
+                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nNumero di rilevazioni: " + (
                     "{:.2f}".format(ssm["itemCount"])))
             i += 1
         return list
@@ -267,15 +267,15 @@ class TweetGenerator:
             dta = DataTypeArchive.fromSymbol(symbol.value)
             ssm = s[symbol]
             list.append(
-                "(" + str(i + 1) + "/" + str(l) + ") Data hari ini\n---" + dta.italianName + "---\nMedia: " + (
-                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nMode: " + (
-                    "{:.2f}".format(ssm["mode"])) + " " + dta.unit + "\nMaksimum: " + (
+                "(" + str(i + 1) + "/" + str(l) + ") Dati di oggi\n---" + dta.italianName + "---\nMedia: " + (
+                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nModa: " + (
+                    "{:.2f}".format(ssm["mode"])) + " " + dta.unit + "\nMassimo: " + (
                     "{:.2f}".format(ssm["max"].value)) + " " + dta.unit + " (" + ssm["max"].instant.strftime(
                     "%d/%m/%Y %H:%M:%S") + ") " + "\nMinimo: " + (
                     "{:.2f}".format(ssm["min"].value)) + " " + dta.unit + " (" + ssm["min"].instant.strftime(
-                    "%d/%m/%Y %H:%M:%S") + ") " + dta.unit + "\nDeviasi standar: " + (
-                    "{:.2f}".format(ssm["stdev"])) + " " + dta.unit + "\nMode: " + (
-                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nJumlah deteksi: " + (
+                    "%d/%m/%Y %H:%M:%S") + ") " + dta.unit + "\nDeviazione Standard: " + (
+                    "{:.2f}".format(ssm["stdev"])) + " " + dta.unit + "\nModa: " + (
+                    "{:.2f}".format(ssm["mean"])) + " " + dta.unit + "\nNumero di rilevazioni: " + (
                     "{:.2f}".format(ssm["itemCount"])))
             i += 1
         return list
