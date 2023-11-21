@@ -5,8 +5,7 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/hrittikhere/feedposter/extractor"
-	"github.com/hrittikhere/feedposter/platforms"
+	
 	"github.com/mmcdole/gofeed"
 )
 
