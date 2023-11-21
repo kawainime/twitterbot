@@ -1,4 +1,6 @@
 # General
+token.txt
+refresh_token.txt
 .DS_Store
 .AppleDouble
 .LSOverride
