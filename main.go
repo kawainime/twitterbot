@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"time"
 
-	"extractor"
-	"platform"
+	"github.com/hrittikhere/feedposter/extractor"
+	"github.com/hrittikhere/feedposter/platforms"
 	"github.com/mmcdole/gofeed"
 )
 
 func main() {
 
-	file, err := ioutil.ReadFile("feed.yaml")
+	file, err := os.ReadFile("feed.yaml")
 	if err != nil {
 		fmt.Println("Error reading config file: ", err)
 	}
