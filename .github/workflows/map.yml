@@ -1,6 +1,7 @@
-name: London Map
+name: London Map Bot
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
 
