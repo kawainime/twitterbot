@@ -1,48 +1,27 @@
 name: publish-to-twitter
-description: posts tweets on Twitter
-author: IntelOwl
+on: [release]
 
-inputs:
-  api_key:
-    description: "API key"
-    required: true
-  api_key_secret:
-    description: "API key secret"
-    required: true
-  access_token:
-    description: "Consumer access token"
-    required: true
-  access_token_secret:
-    description: "Consumer access token secret"
-    required: true
-  status:
-    description: "Status to be published to Twitter"
-    required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-outputs:
-  title:
-    description: "Post's title"
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.x
 
-runs:
-  using: "composite"
-  steps:      
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          pip install tweepy
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
-
-    - name: Install dependencies
-      run: |
-        pip install tweepy
-      shell: bash
-
-    - name: Run tweet script
-      run: python3 publish.py ${{ inputs.api_key }} ${{ inputs.api_key_secret }} ${{ inputs.access_token }} ${{ inputs.access_token_secret }} "${{ inputs.status }}" 
-      shell: bash
-
-branding:
-  icon: "message-circle"
-  color: "blue"
+      - name: Publish tweet
+        uses: intelowlproject/twitter-post
+        with:
+          status: Add publish notes here
+          api_key: ${{ secrets.TWITTER_API_KEY}}
+          api_key_secrets: ${{ secrets.TWITTER_API_KEY_SECRET}}
+          access_token: ${{ secrets.TWITTER_ACCESS_TOKEN}}
+          access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET}}
