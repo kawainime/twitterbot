@@ -1,4 +1,4 @@
-module github.com/hrittikhere/feedposter
+module github.com/kawainime/twitterbota
 
 go 1.18
 
