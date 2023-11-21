@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/hrittikhere/feedposter/extractor"
-	"github.com/hrittikhere/feedposter/platforms"
+	"github.com/kawainime/twitterbot/extractor"
+	"github.com/kawainime/twitterbot/platforms"
 	"github.com/mmcdole/gofeed"
 )
 
