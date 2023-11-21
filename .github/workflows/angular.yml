@@ -1,3 +1,5 @@
+name: coba
+
 on:
   rss:
     url: https://dev.to/feed/this-is-angular
