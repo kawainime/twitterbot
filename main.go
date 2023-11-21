@@ -5,7 +5,8 @@ import (
 	"io/ioutil"
 	"time"
 
-	
+	"extractor"
+	"platform"
 	"github.com/mmcdole/gofeed"
 )
 
