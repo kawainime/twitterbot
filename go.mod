@@ -1,4 +1,4 @@
-module github.com/kawainime/twitterbota
+module github.com/kawainime/twitterbot
 
 go 1.18
 
