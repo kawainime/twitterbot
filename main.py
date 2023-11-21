@@ -80,7 +80,7 @@ print("----------------------------------")
 print("")
 print("SENDING TWEET...")
 
-message = "Iklimnya sedang #twitter #cuaca #bmkg #iklim yaitu "+weather+" dengan suhu itu: "+temp_celsius+" °C ("+str(today)+" "+str(time)+")."
+message = "📌 Iklim yang sedang ☁️ #twitter #cuaca #bmkg #iklim #Reynosa #reynosafollow Yaitu 🌟 "+weather+" dengan suhu 🌡️ itu: "+temp_celsius+" °C ("+str(today)+" "+str(time)+")."
 response = twitter.create_tweet(text=message)
 print("Tentu saja: %s" % message)
 print(f"https://twitter.com/user/status/{response.data['id']}")
