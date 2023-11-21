@@ -1,34 +1,43 @@
-name: Python Gas
+name: Cuaca Dan Iklim
 
-on: [push]
-    # Runs "at minute 55 past every hour" (see https://crontab.guru)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '00 * * * *'
+
 jobs:
-  fetch:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout requirements and data
-      uses: actions/checkout@v2
-    - name: Create data  git repo
-      run: 'git clone https://github.com/StazioneMeteoCocito/dati.git'
-    - name: Setup python
+    - uses: actions/checkout@v2
+    - name: Set up Python version to 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9'
-        cache: 'pip'
-    - name: Install tweepy and requests
-      run: pip install -r requirements.txt
-    - name: Run the python twitter manager
-      run: python3 main.py
+        python-version: '3.8' 
+        architecture: 'x64' 
+    - name: INSTALLING DEPENDENCIES FIRST☝
+      run: |
+        pip install tweepy
+        pip install beautifulsoup4
+        pip install html5lib
+        pip install pytz
+        pip install requests
+    - name: RUNNING main.py 🐍
       env:
-          TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-          TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-    - name: Delte data git repo
-      run: 'rm -rf dati'
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v7
-      with:
-        author_name: Bot
-        message: 'Updated Data Berhasil'
-        add: '*'
+        CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+        CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+        YAHOO_URL: ${{ secrets.YAHOO_URL }}
+        EMAIL: ${{ secrets.EMAIL }}
+      run: |
+        python main.py
+        message=$(date +'%Y-%m-%d-%H:%M:%S')
+        echo $message
+        git config --global user.email "$EMAIL"
+        git config --global user.name "kawainime"
+        git add .
+        git commit -m "$message"
+        git push
