@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/kawainime/twitterbot/extractor"
-	"github.com/kawainime/twitterbot/platforms"
+	"github.com/kawainime/twitterbot/tree/main/extractor"
+	"github.com/kawainime/twitterbot/tree/main/platforms"
 	"github.com/mmcdole/gofeed"
 )
 
