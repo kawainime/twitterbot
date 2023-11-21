@@ -2,7 +2,7 @@ name: Actionsflow
 on:
   schedule:
     # schedule at minute 20 every other hour
-    - cron: "20 */2 * * *"
+    - cron: '*/5 * * * *'
   push:
     branches:
       - main
