@@ -1,7 +1,8 @@
-name: Publisher
+name: Golang FEED
 
 on:
- schedule:
+  workflow_dispatch:
+  schedule:
    - cron: '*/5 * * * *'
 
 jobs:
