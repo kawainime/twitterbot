@@ -1,0 +1,79 @@
+on:
+  rss:
+    url: https://dev.to/feed/this-is-angular
+
+jobs:
+  Tweet:
+    name: Tweet
+    runs-on: ubuntu-latest
+    steps:
+      - name: RSS categories to hashtags
+        uses: actions/github-script@v6.3.1
+        id: hashtags
+        env:
+          categories: ${{ toJSON(on.rss.outputs.categories) }}
+        with:
+          result-encoding: string
+          script: |
+            const categories = JSON.parse(process.env.categories) || [];
+
+            return categories.map(category => "#" + category).join(" ");
+      - name: Article endpoint
+        id: article_endpoint
+        env:
+          article_url: ${{ on.rss.outputs.link }}
+        uses: actions/github-script@v6.3.1
+        with:
+          result-encoding: string
+          script: |
+            return process.env.article_url.replace(/^https:\/\/dev\.to\//, "https://dev.to/api/articles/");
+      - name: Article metadata
+        id: article_metadata
+        uses: actionsflow/axios@v1
+        with:
+          url: ${{ steps.article_endpoint.outputs.result }}
+      - name: Twitter username
+        uses: actions/github-script@v6.3.1
+        id: twitter_username
+        env:
+          response: ${{ steps.article_metadata.outputs.data }}
+        with:
+          result-encoding: string
+          script: |
+            const response = JSON.parse(process.env.response);
+
+            return response.user.twitter_username;
+      - name: Author name from RSS
+        id: author_name
+        uses: actions/github-script@v6.3.1
+        env:
+          rss: ${{ toJSON(on.rss.outputs) }}
+        with:
+          result-encoding: string
+          script: |
+            const rss = JSON.parse(process.env.rss);
+
+            return rss["dc:creator"];
+      - name: Author
+        uses: actions/github-script@v6.3.1
+        id: author
+        env:
+          author_name: ${{ steps.author_name.outputs.result }}
+          twitter_username: ${{ steps.twitter_username.outputs.result }}
+        with:
+          result-encoding: string
+          script: |
+            const { author_name: authorName, twitter_username } = process.env;
+            const twitterUsername = twitter_username === "null" ? null : twitter_username;
+
+            return twitterUsername ? `@${twitterUsername}` : authorName;
+      - name: Tweet through This is Angular
+        uses: ethomson/send-tweet-action@v1
+        with:
+          status: |
+            "${{ on.rss.outputs.title }}" by ${{ steps.author.outputs.result }} ${{ steps.hashtags.outputs.result }} #ThisIsAngular
+            ${{ on.rss.outputs.link }}
+          consumer-key: ${{ secrets.CONSUMER_KEY }}
+          consumer-secret: ${{ secrets.CONSUMER_SECRET }}
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          access-token-secret: ${{ secrets.ACCESS_TOKEN_SECRET }}
