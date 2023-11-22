@@ -3,7 +3,7 @@ name: Cuaca Dan Iklim
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '05 * * * *'
+    - cron:  '*/5 * * * *'
 
 jobs:
   build:
