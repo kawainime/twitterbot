@@ -1,6 +1,3 @@
-data['id']}")
-
-print("TWEET SENT!")
 print("TRYING TO IMPORT LIBRARIES")
 from bs4 import BeautifulSoup
 import requests
