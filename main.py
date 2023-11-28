@@ -16,7 +16,7 @@ yahoo_url = os.environ['YAHOO_URL']
 url = requests.get(yahoo_url)
 page = BeautifulSoup(url.content, "html5lib")
 
-fecha = datetime.now(timezone('Asia/Jakarta'))
+fecha = datetime.now(timezone('US/Central'))
 print("DONE")
 print("")
 
@@ -26,8 +26,8 @@ print("")
 ######### VARIABLES ######### 
 temp_celsius = page.select_one("span.Va\(t\).D\(n\).celsius.celsius_D\(b\)").text
 weather = page.find('p', {'class': 'Fz(1.40rem)--miw1024 Fz(1.12rem)'}).text.strip()
-now = datetime.now(timezone('Asia/Jakarta'))
-today = datetime.now(timezone('Asia/Jakarta')).date()
+now = datetime.now(timezone('US/Central'))
+today = datetime.now(timezone('US/Central')).date()
 temp_sens = page.find("dd", class_="D(n) celsius_D(b)").text.replace("°","")
 humidity = page.find_all("div",class_="D(f) Py(8px) Bdb Bdbs(d) Bdbw(1px) Bdbc($weatherBorderColor) Jc(sb)")[1].find("dd").text.replace("%","")
 visibility = page.find_all("div",class_="D(f) Py(8px) Bdb Bdbs(d) Bdbw(1px) Bdbc($weatherBorderColor) Jc(sb)")[2].find("dd", class_="D(n) kilometers_D(b)").text.replace(" km","")
