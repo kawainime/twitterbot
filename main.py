@@ -1,3 +1,6 @@
+data['id']}")
+
+print("TWEET SENT!")
 print("TRYING TO IMPORT LIBRARIES")
 from bs4 import BeautifulSoup
 import requests
@@ -80,9 +83,9 @@ print("----------------------------------")
 print("")
 print("SENDING TWEET...")
 
-message = "📌 Iklim yang sedang ☁️ #twitter #cuaca #bmkg #iklim #Reynosa #reynosafollow Yaitu 🌟 "+weather+" dengan suhu 🌡️ itu: "+temp_celsius+" °C ("+str(today)+" "+str(time)+")."
+message = "#CuacaHariIni #PrakiraanCuaca #PerubahanIklim #Dingin #ClimateChange #Sustainability #Reynosa #reynosafollow es "+weather+" con una temperatura de: "+temp_celsius+" °C ("+str(today)+" "+str(time)+")."
 response = twitter.create_tweet(text=message)
-print("Tentu saja: %s" % message)
+print("Se tuiteo: %s" % message)
 print(f"https://twitter.com/user/status/{response.data['id']}")
 
 print("TWEET SENT!")
